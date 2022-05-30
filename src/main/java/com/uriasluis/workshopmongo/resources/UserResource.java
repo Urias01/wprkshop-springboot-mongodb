@@ -1,5 +1,6 @@
 package com.uriasluis.workshopmongo.resources;
 
+import com.uriasluis.workshopmongo.domain.Post;
 import com.uriasluis.workshopmongo.domain.User;
 import com.uriasluis.workshopmongo.dto.UserDTO;
 import com.uriasluis.workshopmongo.services.UserService;
@@ -61,8 +62,10 @@ public class UserResource {
         return ResponseEntity.noContent().build() ;
     }
 
-
-
-
-
+    // @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
 }
